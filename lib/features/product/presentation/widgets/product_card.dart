@@ -49,9 +49,9 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 6,
-                  right: 6,
-                  child: WishlistButton(productId: product.id, filled: true),
+                  bottom: 5,
+                  right: 8,
+                  child: WishlistButton(productId: product.id, filled: false),
                 ),
               ],
             ),
