@@ -118,6 +118,45 @@ void main() {
     expect(find.text('릴렉스 코튼 티셔츠'), findsOneWidget);
   });
 
+  testWidgets('applies product discount filter', (tester) async {
+    await _pumpApp(tester);
+
+    await tester.tap(find.text('카테고리'));
+    await tester.pump();
+    await tester.tap(find.text('전체보기').first);
+    await tester.pumpAndSettle();
+
+    expect(find.text('5개 상품'), findsOneWidget);
+
+    await tester.tap(find.text('필터'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('할인 상품만'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('적용하기'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('2개 상품'), findsOneWidget);
+    expect(find.text('필터 1'), findsOneWidget);
+  });
+
+  testWidgets('changes product sort order', (tester) async {
+    await _pumpApp(tester);
+
+    await tester.tap(find.text('카테고리'));
+    await tester.pump();
+    await tester.tap(find.text('티셔츠'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('최신순'), findsOneWidget);
+
+    await tester.tap(find.text('최신순'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('높은 가격순'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('높은 가격순'), findsOneWidget);
+  });
+
   testWidgets('opens product detail from product list', (tester) async {
     await _pumpApp(tester);
 

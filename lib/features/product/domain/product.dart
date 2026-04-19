@@ -13,6 +13,7 @@ class Product {
     this.rating = 0,
     this.reviewCount = 0,
     this.isNew = false,
+    this.isInStock = true,
   });
 
   final String id;
@@ -28,6 +29,7 @@ class Product {
   final double rating;
   final int reviewCount;
   final bool isNew;
+  final bool isInStock;
 
   int? get discountRate {
     final original = originalPrice;

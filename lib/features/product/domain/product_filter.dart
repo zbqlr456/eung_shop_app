@@ -1,5 +1,17 @@
 enum ProductSort { newest, priceLowToHigh, priceHighToLow, popularity, rating }
 
+extension ProductSortLabel on ProductSort {
+  String get label {
+    return switch (this) {
+      ProductSort.newest => '최신순',
+      ProductSort.priceLowToHigh => '낮은 가격순',
+      ProductSort.priceHighToLow => '높은 가격순',
+      ProductSort.popularity => '인기순',
+      ProductSort.rating => '평점순',
+    };
+  }
+}
+
 class ProductFilter {
   ProductFilter({
     this.categoryId,
@@ -31,6 +43,15 @@ class ProductFilter {
   static final ProductFilter empty = ProductFilter();
 
   bool get hasPriceRange => minPrice != null || maxPrice != null;
+
+  int get activeFilterCount {
+    var count = sizes.length + colors.length + brands.length;
+    if (hasPriceRange) count += 1;
+    if (inStockOnly) count += 1;
+    if (discountOnly) count += 1;
+    if (keyword != null) count += 1;
+    return count;
+  }
 
   bool get isEmpty =>
       categoryId == null &&
@@ -152,3 +173,19 @@ class ProductFilter {
 }
 
 const _sentinel = Object();
+
+class ProductFilterOptions {
+  const ProductFilterOptions({
+    required this.sizes,
+    required this.colors,
+    required this.brands,
+    required this.minPrice,
+    required this.maxPrice,
+  });
+
+  final List<String> sizes;
+  final List<String> colors;
+  final List<String> brands;
+  final int minPrice;
+  final int maxPrice;
+}

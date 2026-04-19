@@ -13,6 +13,8 @@ const mockProducts = [
     rating: 4.8,
     reviewCount: 128,
     isNew: true,
+    colors: ['화이트', '블랙', '네이비'],
+    sizes: ['S', 'M', 'L'],
   ),
   Product(
     id: 'p002',
@@ -24,6 +26,8 @@ const mockProducts = [
         'https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=900&q=80',
     rating: 4.6,
     reviewCount: 84,
+    colors: ['차콜', '화이트'],
+    sizes: ['M', 'L', 'XL'],
   ),
   Product(
     id: 'p003',
@@ -35,6 +39,8 @@ const mockProducts = [
         'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=900&q=80',
     rating: 4.7,
     reviewCount: 71,
+    colors: ['화이트', '스카이'],
+    sizes: ['S', 'M', 'L', 'XL'],
   ),
   Product(
     id: 'p004',
@@ -47,6 +53,8 @@ const mockProducts = [
         'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=900&q=80',
     rating: 4.9,
     reviewCount: 203,
+    colors: ['아이보리', '그레이'],
+    sizes: ['S', 'M', 'L'],
   ),
   Product(
     id: 'p005',
@@ -58,6 +66,9 @@ const mockProducts = [
         'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80',
     rating: 4.5,
     reviewCount: 62,
+    colors: ['블랙', '멜란지'],
+    sizes: ['M', 'L', 'XL'],
+    isInStock: false,
   ),
   Product(
     id: 'p006',
