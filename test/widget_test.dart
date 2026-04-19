@@ -185,6 +185,31 @@ void main() {
 
     expect(find.text('상품 정보'), findsOneWidget);
   });
+
+  testWidgets('adds selected product to cart', (tester) async {
+    await _pumpApp(tester);
+
+    await tester.tap(find.text('카테고리'));
+    await tester.pump();
+    await tester.tap(find.text('티셔츠'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('릴렉스 코튼 티셔츠'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('릴렉스 코튼 티셔츠'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('장바구니'));
+    await tester.pumpAndSettle();
+
+    appRouter.go(RoutePaths.home);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('장바구니'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('릴렉스 코튼 티셔츠'), findsOneWidget);
+    expect(find.text('화이트 / S'), findsOneWidget);
+    expect(find.text('29,000원'), findsOneWidget);
+    expect(find.text('29,000원 주문하기'), findsOneWidget);
+  });
 }
 
 Future<void> _pumpApp(WidgetTester tester) async {

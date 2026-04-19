@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:eung_shop_app/features/cart/application/cart_providers.dart';
 import 'package:eung_shop_app/features/product/application/product_providers.dart';
 import 'package:eung_shop_app/features/product/domain/product.dart';
 import 'package:eung_shop_app/features/product/presentation/product_formatters.dart';
@@ -64,8 +65,15 @@ class ProductDetailPage extends HookConsumerWidget {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () {
+                    ref
+                        .read(cartProvider.notifier)
+                        .add(
+                          productId: product.id,
+                          color: selectedColor.value,
+                          size: selectedSize.value,
+                        );
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('${product.name} 장바구니 담기 예정')),
+                      SnackBar(content: Text('${product.name} 장바구니에 담았습니다.')),
                     );
                   },
                   child: const Text('장바구니'),
