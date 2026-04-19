@@ -18,7 +18,8 @@ void main() {
   testWidgets('switches tabs from home to category page', (tester) async {
     await _pumpApp(tester);
 
-    expect(find.text('홈 화면을 준비 중입니다.'), findsOneWidget);
+    expect(find.text('Eung Shop'), findsOneWidget);
+    expect(find.text('새로 들어왔어요'), findsOneWidget);
 
     await tester.tap(find.text('카테고리'));
     await tester.pump();
@@ -26,6 +27,16 @@ void main() {
     expect(find.text('찾고 싶은 카테고리를 검색해보세요'), findsOneWidget);
     expect(find.text('상의'), findsOneWidget);
     expect(find.text('티셔츠'), findsOneWidget);
+  });
+
+  testWidgets('opens product list from home shortcut', (tester) async {
+    await _pumpApp(tester);
+
+    await tester.tap(find.text('상의'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('상의'), findsOneWidget);
+    expect(find.text('5개 상품'), findsOneWidget);
   });
 
   testWidgets('filters categories by Korean consonant search', (tester) async {

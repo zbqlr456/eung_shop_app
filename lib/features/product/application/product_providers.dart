@@ -126,6 +126,26 @@ Product? productById(Ref ref, String productId) {
   return null;
 }
 
+@riverpod
+List<Product> newProducts(Ref ref) {
+  final products = [...mockProducts]
+    ..sort((a, b) {
+      final newCompare = (b.isNew ? 1 : 0).compareTo(a.isNew ? 1 : 0);
+      if (newCompare != 0) return newCompare;
+      return b.id.compareTo(a.id);
+    });
+
+  return products.take(6).toList(growable: false);
+}
+
+@riverpod
+List<Product> popularProducts(Ref ref) {
+  final products = [...mockProducts]
+    ..sort((a, b) => b.reviewCount.compareTo(a.reviewCount));
+
+  return products.take(6).toList(growable: false);
+}
+
 bool _matchesFilter(Product product, ProductFilter filter) {
   if (filter.sizes.isNotEmpty &&
       !product.sizes.any((size) => filter.sizes.contains(size))) {

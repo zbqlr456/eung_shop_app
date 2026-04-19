@@ -388,3 +388,85 @@ final class ProductByIdFamily extends $Family
   @override
   String toString() => r'productByIdProvider';
 }
+
+@ProviderFor(newProducts)
+final newProductsProvider = NewProductsProvider._();
+
+final class NewProductsProvider
+    extends $FunctionalProvider<List<Product>, List<Product>, List<Product>>
+    with $Provider<List<Product>> {
+  NewProductsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'newProductsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$newProductsHash();
+
+  @$internal
+  @override
+  $ProviderElement<List<Product>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<Product> create(Ref ref) {
+    return newProducts(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Product> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Product>>(value),
+    );
+  }
+}
+
+String _$newProductsHash() => r'abd0bba2dcc3c4b93f901bf7f328e297c5956431';
+
+@ProviderFor(popularProducts)
+final popularProductsProvider = PopularProductsProvider._();
+
+final class PopularProductsProvider
+    extends $FunctionalProvider<List<Product>, List<Product>, List<Product>>
+    with $Provider<List<Product>> {
+  PopularProductsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'popularProductsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$popularProductsHash();
+
+  @$internal
+  @override
+  $ProviderElement<List<Product>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<Product> create(Ref ref) {
+    return popularProducts(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Product> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Product>>(value),
+    );
+  }
+}
+
+String _$popularProductsHash() => r'd8dfa12d992584785c04fc8f4a21e988df224009';
