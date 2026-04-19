@@ -219,3 +219,15 @@ Set<String> categoryIdsForSelection(
 
   return ids;
 }
+
+String categorySearchTextForId(String categoryId) {
+  for (final section in allKnownCategorySections) {
+    if (section.id == categoryId) return section.title;
+
+    for (final item in section.items) {
+      if (item.id == categoryId) return '${section.title} ${item.name}';
+    }
+  }
+
+  return categoryId;
+}

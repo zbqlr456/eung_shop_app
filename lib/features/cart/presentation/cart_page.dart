@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:eung_shop_app/app/router/route_names.dart';
+import 'package:eung_shop_app/features/auth/application/auth_providers.dart';
 import 'package:eung_shop_app/features/cart/application/cart_providers.dart';
 import 'package:eung_shop_app/features/cart/domain/cart_item.dart';
 import 'package:eung_shop_app/features/product/application/product_providers.dart';
@@ -13,6 +16,7 @@ class CartPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(cartProvider);
+    final currentUser = ref.watch(authControllerProvider).currentUser;
     final productsById = {
       for (final item in items)
         item.productId: ref.watch(productByIdProvider(item.productId)),
@@ -58,9 +62,15 @@ class CartPage extends HookConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
                 child: FilledButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('주문서 화면으로 이동 예정')),
-                    );
+                    if (currentUser == null) {
+                      context.pushNamed(
+                        RouteNames.login,
+                        queryParameters: {'redirect': RoutePaths.checkout},
+                      );
+                      return;
+                    }
+
+                    context.pushNamed(RouteNames.checkout);
                   },
                   child: Text('${formatPrice(totalPrice)}원 주문하기'),
                 ),

@@ -4,6 +4,7 @@ import 'package:eung_shop_app/features/category/data/category_catalog.dart';
 import 'package:eung_shop_app/features/product/data/mock_products.dart';
 import 'package:eung_shop_app/features/product/domain/product.dart';
 import 'package:eung_shop_app/features/product/domain/product_filter.dart';
+import 'package:eung_shop_app/shared/utils/hangul_search.dart';
 
 part 'product_providers.g.dart';
 
@@ -144,6 +145,25 @@ List<Product> popularProducts(Ref ref) {
     ..sort((a, b) => b.reviewCount.compareTo(a.reviewCount));
 
   return products.take(6).toList(growable: false);
+}
+
+@riverpod
+List<Product> searchedProducts(Ref ref, String query) {
+  final keyword = query.trim();
+  if (keyword.isEmpty) return const [];
+
+  final products = mockProducts.where((product) {
+    final searchText = [
+      product.brand,
+      product.name,
+      categorySearchTextForId(product.categoryId),
+    ].join(' ');
+
+    return matchesHangulKeyword(searchText, keyword);
+  }).toList();
+
+  _sortProducts(products, ProductSort.popularity);
+  return products;
 }
 
 bool _matchesFilter(Product product, ProductFilter filter) {

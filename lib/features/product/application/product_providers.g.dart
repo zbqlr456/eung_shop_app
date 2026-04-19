@@ -470,3 +470,80 @@ final class PopularProductsProvider
 }
 
 String _$popularProductsHash() => r'd8dfa12d992584785c04fc8f4a21e988df224009';
+
+@ProviderFor(searchedProducts)
+final searchedProductsProvider = SearchedProductsFamily._();
+
+final class SearchedProductsProvider
+    extends $FunctionalProvider<List<Product>, List<Product>, List<Product>>
+    with $Provider<List<Product>> {
+  SearchedProductsProvider._({
+    required SearchedProductsFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'searchedProductsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$searchedProductsHash();
+
+  @override
+  String toString() {
+    return r'searchedProductsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<Product>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<Product> create(Ref ref) {
+    final argument = this.argument as String;
+    return searchedProducts(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Product> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Product>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SearchedProductsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$searchedProductsHash() => r'efd28c24722a07c77b3c12ebe84ec07b84fe8de5';
+
+final class SearchedProductsFamily extends $Family
+    with $FunctionalFamilyOverride<List<Product>, String> {
+  SearchedProductsFamily._()
+    : super(
+        retry: null,
+        name: r'searchedProductsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  SearchedProductsProvider call(String query) =>
+      SearchedProductsProvider._(argument: query, from: this);
+
+  @override
+  String toString() => r'searchedProductsProvider';
+}

@@ -1,5 +1,10 @@
 import 'package:eung_shop_app/app/shell/main_shell.dart';
 import 'package:eung_shop_app/app/router/route_names.dart';
+import 'package:eung_shop_app/features/auth/presentation/login_page.dart';
+import 'package:eung_shop_app/features/auth/presentation/signup_page.dart';
+import 'package:eung_shop_app/features/checkout/presentation/checkout_page.dart';
+import 'package:eung_shop_app/features/order/presentation/order_history_page.dart';
+import 'package:eung_shop_app/features/search/presentation/search_page.dart';
 import 'package:eung_shop_app/features/product/presentation/product_detail_page.dart';
 import 'package:eung_shop_app/features/product/presentation/product_list_page.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +16,27 @@ final appRouter = GoRouter(
       path: RoutePaths.home,
       name: RouteNames.home,
       builder: (context, state) => const MainShell(),
+    ),
+    GoRoute(
+      path: RoutePaths.login,
+      name: RouteNames.login,
+      builder: (context, state) {
+        final redirectPath = state.uri.queryParameters['redirect'];
+        return LoginPage(redirectPath: redirectPath);
+      },
+    ),
+    GoRoute(
+      path: RoutePaths.signup,
+      name: RouteNames.signup,
+      builder: (context, state) {
+        final redirectPath = state.uri.queryParameters['redirect'];
+        return SignupPage(redirectPath: redirectPath);
+      },
+    ),
+    GoRoute(
+      path: RoutePaths.search,
+      name: RouteNames.search,
+      builder: (context, state) => const SearchPage(),
     ),
     GoRoute(
       path: RoutePaths.productList,
@@ -35,6 +61,16 @@ final appRouter = GoRouter(
         final productId = state.pathParameters['productId'] ?? '';
         return ProductDetailPage(productId: productId);
       },
+    ),
+    GoRoute(
+      path: RoutePaths.checkout,
+      name: RouteNames.checkout,
+      builder: (context, state) => const CheckoutPage(),
+    ),
+    GoRoute(
+      path: RoutePaths.orderHistory,
+      name: RouteNames.orderHistory,
+      builder: (context, state) => const OrderHistoryPage(),
     ),
   ],
 );

@@ -98,9 +98,7 @@ class _HomeSearchBox extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(8),
       onTap: () {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('검색 화면으로 이동 예정')));
+        context.pushNamed(RouteNames.search);
       },
       child: Container(
         height: 48,
