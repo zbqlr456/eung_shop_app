@@ -9,6 +9,7 @@ class RouteNames {
   static const productDetail = 'productDetail';
   static const checkout = 'checkout';
   static const orderHistory = 'orderHistory';
+  static const wishlist = 'wishlist';
 }
 
 class RoutePaths {
@@ -22,4 +23,5 @@ class RoutePaths {
   static const productDetail = '/products/:productId';
   static const checkout = '/checkout';
   static const orderHistory = '/orders';
+  static const wishlist = '/wishlist';
 }

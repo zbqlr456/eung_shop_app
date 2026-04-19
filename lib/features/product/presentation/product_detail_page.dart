@@ -10,6 +10,7 @@ import 'package:eung_shop_app/features/product/application/product_providers.dar
 import 'package:eung_shop_app/features/product/domain/product.dart';
 import 'package:eung_shop_app/features/product/presentation/product_formatters.dart';
 import 'package:eung_shop_app/features/product/presentation/widgets/product_card.dart';
+import 'package:eung_shop_app/features/wishlist/presentation/widgets/wishlist_button.dart';
 
 class ProductDetailPage extends HookConsumerWidget {
   const ProductDetailPage({super.key, required this.productId});
@@ -46,7 +47,15 @@ class ProductDetailPage extends HookConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('상품 상세')),
+      appBar: AppBar(
+        title: const Text('상품 상세'),
+        actions: [
+          WishlistButton(
+            productId: product.id,
+            redirectPath: '${RoutePaths.productList}/${product.id}',
+          ),
+        ],
+      ),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(

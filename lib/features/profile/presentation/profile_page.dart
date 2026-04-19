@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:eung_shop_app/app/router/route_names.dart';
 import 'package:eung_shop_app/features/auth/application/auth_providers.dart';
 import 'package:eung_shop_app/features/order/application/order_providers.dart';
+import 'package:eung_shop_app/features/wishlist/application/wishlist_providers.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -13,7 +14,9 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(authControllerProvider).currentUser;
     final orders = ref.watch(currentUserOrdersProvider);
+    final wishlistProductIds = ref.watch(currentUserWishlistProductIdsProvider);
     final orderCount = orders.length;
+    final wishlistCount = wishlistProductIds.length;
     final totalOrderQuantity = orders.fold(
       0,
       (total, order) => total + order.totalQuantity,
@@ -83,6 +86,15 @@ class ProfilePage extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 28),
+          _ProfileMenuTile(
+            icon: Icons.favorite_border,
+            title: '찜한 상품',
+            subtitle: wishlistCount == 0
+                ? '마음에 드는 상품을 모아보세요.'
+                : '$wishlistCount개의 찜한 상품',
+            onTap: () => context.pushNamed(RouteNames.wishlist),
+          ),
+          const SizedBox(height: 12),
           _ProfileMenuTile(
             icon: Icons.receipt_long_outlined,
             title: '주문 내역',

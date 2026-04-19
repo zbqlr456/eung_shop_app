@@ -310,6 +310,50 @@ void main() {
     expect(find.text('함께 보면 좋은 상품'), findsOneWidget);
   });
 
+  testWidgets('adds product to wishlist and opens wishlist from profile', (
+    tester,
+  ) async {
+    await _pumpApp(tester);
+    await _loginDemoUser(tester);
+
+    appRouter.go(RoutePaths.home);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('카테고리'));
+    await tester.pump();
+    await tester.tap(find.text('티셔츠'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('릴렉스 코튼 티셔츠'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('릴렉스 코튼 티셔츠'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byTooltip('찜하기'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('찜한 상품에 추가했어요.'), findsOneWidget);
+    expect(find.byTooltip('찜 해제'), findsOneWidget);
+
+    await tester.pump(const Duration(seconds: 4));
+    await tester.pumpAndSettle();
+    appRouter.go(RoutePaths.home);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('마이'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('1개의 찜한 상품'), findsOneWidget);
+
+    await tester.tap(find.text('찜한 상품'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('1개 상품'), findsOneWidget);
+    expect(find.text('릴렉스 코튼 티셔츠'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('찜 해제'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('아직 찜한 상품이 없습니다.'), findsOneWidget);
+  });
+
   testWidgets('adds selected product to cart', (tester) async {
     await _pumpApp(tester);
 
@@ -450,4 +494,21 @@ Future<void> _pumpApp(WidgetTester tester) async {
   appRouter.go(RoutePaths.home);
   await tester.pumpWidget(const ProviderScope(child: App()));
   await tester.pump();
+}
+
+Future<void> _loginDemoUser(WidgetTester tester) async {
+  await tester.tap(find.text('마이'));
+  await tester.pumpAndSettle();
+  await tester.tap(find.widgetWithText(FilledButton, '로그인'));
+  await tester.pumpAndSettle();
+  await tester.enterText(
+    find.byKey(const ValueKey('loginEmailField')),
+    'test@eung.shop',
+  );
+  await tester.enterText(
+    find.byKey(const ValueKey('loginPasswordField')),
+    'password123',
+  );
+  await tester.tap(find.widgetWithText(FilledButton, '로그인'));
+  await tester.pumpAndSettle();
 }

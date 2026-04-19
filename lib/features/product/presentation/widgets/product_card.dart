@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:eung_shop_app/app/router/route_names.dart';
 import 'package:eung_shop_app/features/product/domain/product.dart';
 import 'package:eung_shop_app/features/product/presentation/product_formatters.dart';
+import 'package:eung_shop_app/features/wishlist/presentation/widgets/wishlist_button.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.product});
@@ -29,21 +30,30 @@ class ProductCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: AspectRatio(
-              aspectRatio: 3 / 4,
-              child: Image.network(
-                product.imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return ColoredBox(
-                    color: colorScheme.surfaceContainerHighest,
-                    child: Icon(
-                      Icons.image_not_supported_outlined,
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-                  );
-                },
-              ),
+            child: Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 3 / 4,
+                  child: Image.network(
+                    product.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return ColoredBox(
+                        color: colorScheme.surfaceContainerHighest,
+                        child: Icon(
+                          Icons.image_not_supported_outlined,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Positioned(
+                  top: 6,
+                  right: 6,
+                  child: WishlistButton(productId: product.id, filled: true),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 8),

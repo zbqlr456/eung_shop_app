@@ -7,6 +7,7 @@ import 'package:eung_shop_app/features/order/presentation/order_history_page.dar
 import 'package:eung_shop_app/features/search/presentation/search_page.dart';
 import 'package:eung_shop_app/features/product/presentation/product_detail_page.dart';
 import 'package:eung_shop_app/features/product/presentation/product_list_page.dart';
+import 'package:eung_shop_app/features/wishlist/presentation/wishlist_page.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouter = GoRouter(
@@ -71,6 +72,11 @@ final appRouter = GoRouter(
       path: RoutePaths.orderHistory,
       name: RouteNames.orderHistory,
       builder: (context, state) => const OrderHistoryPage(),
+    ),
+    GoRoute(
+      path: RoutePaths.wishlist,
+      name: RouteNames.wishlist,
+      builder: (context, state) => const WishlistPage(),
     ),
   ],
 );
