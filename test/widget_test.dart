@@ -259,19 +259,55 @@ void main() {
 
     expect(find.text('상품 상세'), findsOneWidget);
     expect(find.text('장바구니'), findsOneWidget);
-    expect(find.text('바로구매'), findsOneWidget);
+    expect(find.text('29,000원 바로구매'), findsOneWidget);
 
-    await tester.scrollUntilVisible(find.text('EUNG'), 300);
+    final detailScrollable = find
+        .byWidgetPredicate(
+          (widget) =>
+              widget is Scrollable &&
+              widget.axisDirection == AxisDirection.down,
+        )
+        .last;
+
+    await tester.scrollUntilVisible(
+      find.text('EUNG'),
+      300,
+      scrollable: detailScrollable,
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('EUNG'), findsOneWidget);
+    expect(find.text('구매 가능'), findsOneWidget);
     expect(find.text('색상'), findsOneWidget);
     expect(find.text('사이즈'), findsOneWidget);
+    expect(find.text('사이즈 가이드'), findsOneWidget);
 
-    await tester.scrollUntilVisible(find.text('상품 정보'), 300);
+    await tester.scrollUntilVisible(
+      find.text('수량'),
+      200,
+      scrollable: detailScrollable,
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('수량'), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.text('상품 정보'),
+      300,
+      scrollable: detailScrollable,
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('상품 정보'), findsOneWidget);
+
+    await tester.scrollUntilVisible(
+      find.text('함께 보면 좋은 상품'),
+      300,
+      scrollable: detailScrollable,
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('함께 보면 좋은 상품'), findsOneWidget);
   });
 
   testWidgets('adds selected product to cart', (tester) async {

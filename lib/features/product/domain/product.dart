@@ -6,6 +6,7 @@ class Product {
     required this.name,
     required this.price,
     required this.imageUrl,
+    this.galleryImageUrls = const [],
     this.originalPrice,
     this.description = '매일 입기 좋은 균형 잡힌 핏과 편안한 소재로 완성했습니다.',
     this.colors = const ['블랙', '화이트'],
@@ -23,6 +24,7 @@ class Product {
   final int price;
   final int? originalPrice;
   final String imageUrl;
+  final List<String> galleryImageUrls;
   final String description;
   final List<String> colors;
   final List<String> sizes;
@@ -30,6 +32,10 @@ class Product {
   final int reviewCount;
   final bool isNew;
   final bool isInStock;
+
+  List<String> get imageGallery {
+    return [imageUrl, ...galleryImageUrls];
+  }
 
   int? get discountRate {
     final original = originalPrice;

@@ -10,6 +10,10 @@ const mockProducts = [
     originalPrice: 39000,
     imageUrl:
         'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80',
+    galleryImageUrls: [
+      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1583743814966-8936f37f4678?auto=format&fit=crop&w=900&q=80',
+    ],
     rating: 4.8,
     reviewCount: 128,
     isNew: true,
@@ -24,6 +28,9 @@ const mockProducts = [
     price: 34000,
     imageUrl:
         'https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=900&q=80',
+    galleryImageUrls: [
+      'https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=900&q=80',
+    ],
     rating: 4.6,
     reviewCount: 84,
     colors: ['차콜', '화이트'],
@@ -37,6 +44,9 @@ const mockProducts = [
     price: 52000,
     imageUrl:
         'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=900&q=80',
+    galleryImageUrls: [
+      'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=80',
+    ],
     rating: 4.7,
     reviewCount: 71,
     colors: ['화이트', '스카이'],

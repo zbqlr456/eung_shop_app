@@ -128,6 +128,41 @@ Product? productById(Ref ref, String productId) {
 }
 
 @riverpod
+List<Product> relatedProducts(Ref ref, String productId) {
+  final currentProduct = ref.watch(productByIdProvider(productId));
+  if (currentProduct == null) return const [];
+
+  final sameCategoryProducts =
+      mockProducts
+          .where(
+            (product) =>
+                product.id != currentProduct.id &&
+                product.categoryId == currentProduct.categoryId,
+          )
+          .toList()
+        ..sort((a, b) => b.reviewCount.compareTo(a.reviewCount));
+
+  if (sameCategoryProducts.length >= 4) {
+    return sameCategoryProducts.take(4).toList(growable: false);
+  }
+
+  final fallbackProducts =
+      mockProducts
+          .where(
+            (product) =>
+                product.id != currentProduct.id &&
+                product.categoryId != currentProduct.categoryId,
+          )
+          .toList()
+        ..sort((a, b) => b.reviewCount.compareTo(a.reviewCount));
+
+  return [
+    ...sameCategoryProducts,
+    ...fallbackProducts,
+  ].take(4).toList(growable: false);
+}
+
+@riverpod
 List<Product> newProducts(Ref ref) {
   final products = [...mockProducts]
     ..sort((a, b) {

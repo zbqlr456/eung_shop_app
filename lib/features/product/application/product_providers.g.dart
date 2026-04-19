@@ -389,6 +389,83 @@ final class ProductByIdFamily extends $Family
   String toString() => r'productByIdProvider';
 }
 
+@ProviderFor(relatedProducts)
+final relatedProductsProvider = RelatedProductsFamily._();
+
+final class RelatedProductsProvider
+    extends $FunctionalProvider<List<Product>, List<Product>, List<Product>>
+    with $Provider<List<Product>> {
+  RelatedProductsProvider._({
+    required RelatedProductsFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'relatedProductsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$relatedProductsHash();
+
+  @override
+  String toString() {
+    return r'relatedProductsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $ProviderElement<List<Product>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<Product> create(Ref ref) {
+    final argument = this.argument as String;
+    return relatedProducts(ref, argument);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Product> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Product>>(value),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is RelatedProductsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$relatedProductsHash() => r'e0bd95f0608492ec0298ffd267f3ac1b0196bde0';
+
+final class RelatedProductsFamily extends $Family
+    with $FunctionalFamilyOverride<List<Product>, String> {
+  RelatedProductsFamily._()
+    : super(
+        retry: null,
+        name: r'relatedProductsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  RelatedProductsProvider call(String productId) =>
+      RelatedProductsProvider._(argument: productId, from: this);
+
+  @override
+  String toString() => r'relatedProductsProvider';
+}
+
 @ProviderFor(newProducts)
 final newProductsProvider = NewProductsProvider._();
 
